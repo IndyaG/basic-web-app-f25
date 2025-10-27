@@ -17,7 +17,7 @@ export default function QueryProcessor(query: string): string {
     return "igriffin";
   }
 
-  // Check for addition questions like "What is 26 plus 13?"
+  // Addition question: "What is 26 plus 13?"
   const additionMatch = query.match(/what is (\d+) plus (\d+)\?/i);
   if (additionMatch) {
     const num1 = parseInt(additionMatch[1], 10);
@@ -25,7 +25,7 @@ export default function QueryProcessor(query: string): string {
     return (num1 + num2).toString();
   }
 
-  // Check for "Which of the following numbers is the largest: 19, 48, 98?"
+  // Largest number question
   const largestMatch = query.match(/which of the following numbers is the largest:\s*([\d,\s]+)\?/i);
   if (largestMatch) {
     const numbers = largestMatch[1]
@@ -33,6 +33,19 @@ export default function QueryProcessor(query: string): string {
       .map(num => parseInt(num.trim(), 10));
     const largestNumber = Math.max(...numbers);
     return largestNumber.toString();
+  }
+
+  // Square and cube question (perfect sixth power)
+  const squareCubeMatch = query.match(/which of the following numbers is both a square and a cube:\s*([\d,\s]+)\?/i);
+  if (squareCubeMatch) {
+    const numbers = squareCubeMatch[1]
+      .split(",")
+      .map(num => parseInt(num.trim(), 10));
+    const result = numbers.filter(num => {
+      const sixthRoot = Math.round(Math.pow(num, 1/6));
+      return sixthRoot ** 6 === num;
+    });
+    return result.join(", ") || "None";
   }
 
   return "";
