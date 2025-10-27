@@ -25,5 +25,15 @@ export default function QueryProcessor(query: string): string {
     return (num1 + num2).toString();
   }
 
+  // Check for "Which of the following numbers is the largest: 19, 48, 98?"
+  const largestMatch = query.match(/which of the following numbers is the largest:\s*([\d,\s]+)\?/i);
+  if (largestMatch) {
+    const numbers = largestMatch[1]
+      .split(",")
+      .map(num => parseInt(num.trim(), 10));
+    const largestNumber = Math.max(...numbers);
+    return largestNumber.toString();
+  }
+
   return "";
 }
