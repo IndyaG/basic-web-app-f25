@@ -59,22 +59,24 @@ export default function QueryProcessor(query: string): string {
     return Math.pow(base, exponent).toString();
   }
 
-  // Dynamic arithmetic: addition, subtraction, multiplication, division
-  const arithmeticMatch = query.match(/what is (\d+)\s*(plus|minus|multiplied by|times|divided by|\/|\*)\s*(\d+)\?/i);
+  // Dynamic arithmetic with multiple operations
+  const arithmeticMatch = query.match(/what is (.+)\?/i);
   if (arithmeticMatch) {
-    const num1 = parseFloat(arithmeticMatch[1]);
-    const operator = arithmeticMatch[2];
-    const num2 = parseFloat(arithmeticMatch[3]);
+    let expression = arithmeticMatch[1];
 
-    switch (operator) {
-      case "plus": return (num1 + num2).toString();
-      case "minus": return (num1 - num2).toString();
-      case "multiplied by":
-      case "times":
-      case "*": return (num1 * num2).toString();
-      case "divided by":
-      case "/": return num2 === 0 ? "Cannot divide by zero" : (num1 / num2).toString();
-      default: return "Operator not recognized";
+    // Replace words with JS operators
+    expression = expression
+      .replace(/plus/g, "+")
+      .replace(/minus/g, "-")
+      .replace(/multiplied by|times/g, "*")
+      .replace(/divided by/g, "/");
+
+    try {
+      // Evaluate safely using Function
+      const result = Function(`return ${expression}`)();
+      return result.toString();
+    } catch (e) {
+      return "Could not compute the expression.";
     }
   }
 
