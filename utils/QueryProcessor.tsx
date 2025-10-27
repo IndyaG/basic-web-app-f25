@@ -17,7 +17,7 @@ export default function QueryProcessor(query: string): string {
     return "igriffin";
   }
 
-  // Addition question: "What is 26 plus 13?"
+  // Addition question
   const additionMatch = query.match(/what is (\d+) plus (\d+)\?/i);
   if (additionMatch) {
     const num1 = parseInt(additionMatch[1], 10);
@@ -25,7 +25,7 @@ export default function QueryProcessor(query: string): string {
     return (num1 + num2).toString();
   }
 
-  // Multiplication question: "What is 12 multiplied by 19?"
+  // Multiplication question
   const multiplicationMatch = query.match(/what is (\d+) multiplied by (\d+)\?/i);
   if (multiplicationMatch) {
     const num1 = parseInt(multiplicationMatch[1], 10);
