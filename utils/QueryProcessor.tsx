@@ -17,7 +17,7 @@ export default function QueryProcessor(query: string): string {
     return "igriffin";
   }
 
-  // Addition question
+  // Addition: "What is 26 plus 13?"
   const additionMatch = query.match(/what is (\d+) plus (\d+)\?/i);
   if (additionMatch) {
     const num1 = parseInt(additionMatch[1], 10);
@@ -25,7 +25,15 @@ export default function QueryProcessor(query: string): string {
     return (num1 + num2).toString();
   }
 
-  // Multiplication question
+  // Subtraction: "What is 15 minus 7?"
+  const subtractionMatch = query.match(/what is (\d+) minus (\d+)\?/i);
+  if (subtractionMatch) {
+    const num1 = parseInt(subtractionMatch[1], 10);
+    const num2 = parseInt(subtractionMatch[2], 10);
+    return (num1 - num2).toString();
+  }
+
+  // Multiplication: "What is 12 multiplied by 19?"
   const multiplicationMatch = query.match(/what is (\d+) multiplied by (\d+)\?/i);
   if (multiplicationMatch) {
     const num1 = parseInt(multiplicationMatch[1], 10);
@@ -33,7 +41,7 @@ export default function QueryProcessor(query: string): string {
     return (num1 * num2).toString();
   }
 
-  // Largest number question
+  // Largest number: "Which of the following numbers is the largest: 19, 48, 98?"
   const largestMatch = query.match(/which of the following numbers is the largest:\s*([\d,\s]+)\?/i);
   if (largestMatch) {
     const numbers = largestMatch[1]
@@ -43,7 +51,7 @@ export default function QueryProcessor(query: string): string {
     return largestNumber.toString();
   }
 
-  // Square and cube question (perfect sixth power)
+  // Square and cube: "Which of the following numbers is both a square and a cube: 729, 1?"
   const squareCubeMatch = query.match(/which of the following numbers is both a square and a cube:\s*([\d,\s]+)\?/i);
   if (squareCubeMatch) {
     const numbers = squareCubeMatch[1]
