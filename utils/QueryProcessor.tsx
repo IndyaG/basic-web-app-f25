@@ -40,6 +40,25 @@ export default function QueryProcessor(query: string): string {
     return result.join(", ") || "None";
   }
 
+  // Prime number question
+  const primeMatch = query.match(/which of the following numbers are primes:\s*([\d,\s]+)\?/i);
+  if (primeMatch) {
+    const numbers = primeMatch[1]
+      .split(",")
+      .map(num => parseInt(num.trim(), 10));
+
+    const isPrime = (n: number): boolean => {
+      if (n < 2) return false;
+      for (let i = 2; i <= Math.sqrt(n); i++) {
+        if (n % i === 0) return false;
+      }
+      return true;
+    };
+
+    const primes = numbers.filter(isPrime);
+    return primes.join(", ") || "None";
+  }
+
   // Dynamic arithmetic handler
   const arithmeticMatch = query.match(/what is (\d+)\s*(plus|minus|multiplied by|times|divided by|\/|\*)\s*(\d+)\?/i);
   if (arithmeticMatch) {
