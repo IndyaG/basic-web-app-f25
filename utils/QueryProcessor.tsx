@@ -30,7 +30,7 @@ export default function QueryProcessor(query: string): string {
   if (squareCubeMatch) {
     const numbers = squareCubeMatch[1].split(",").map(num => parseInt(num.trim(), 10));
     const result = numbers.filter(num => {
-      const sixthRoot = Math.round(Math.pow(num, 1/6));
+      const sixthRoot = Math.round(Math.pow(num, 1 / 6));
       return sixthRoot ** 6 === num;
     });
     return result.join(", ") || "None";
@@ -49,6 +49,14 @@ export default function QueryProcessor(query: string): string {
     };
     const primes = numbers.filter(isPrime);
     return primes.join(", ") || "None";
+  }
+
+  // Exponentiation: "What is X to the power of Y?"
+  const powerMatch = query.match(/what is (\d+)\s*to the power of\s*(\d+)\?/i);
+  if (powerMatch) {
+    const base = parseFloat(powerMatch[1]);
+    const exponent = parseFloat(powerMatch[2]);
+    return Math.pow(base, exponent).toString();
   }
 
   // Dynamic arithmetic: addition, subtraction, multiplication, division
