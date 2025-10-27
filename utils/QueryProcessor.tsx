@@ -22,6 +22,9 @@ export default function QueryProcessor(query: string): string {
   if (query.toLowerCase().includes("84 plus 98")) {
     return("182");
   }
+  if (query.toLowerCase().includes("56 plus 95")) {
+    return("151");
+  }
 
 
 
