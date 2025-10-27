@@ -80,5 +80,19 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+    const anagramMatch = query.match(/which of the following is an anagram of (\w+):\s*([\w\s,]+)\?/i);
+  if (anagramMatch) {
+    const target = anagramMatch[1].toLowerCase();
+    const candidates = anagramMatch[2].split(",").map(word => word.trim().toLowerCase());
+
+    const sortLetters = (word: string) => word.split("").sort().join("");
+
+    const anagrams = candidates.filter(word => sortLetters(word) === sortLetters(target));
+
+    return anagrams.join(", ") || "None";
+  }
+
+
+
   return "I don't know the answer to that.";
 }
