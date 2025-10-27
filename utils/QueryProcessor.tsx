@@ -1,5 +1,7 @@
 export default function QueryProcessor(query: string): string {
-  if (query.toLowerCase().includes("shakespeare")) {
+  const lowerQuery = query.toLowerCase();
+
+  if (lowerQuery.includes("shakespeare")) {
     return (
       "William Shakespeare (26 April 1564 - 23 April 1616) was an " +
       "English poet, playwright, and actor, widely regarded as the greatest " +
@@ -7,30 +9,21 @@ export default function QueryProcessor(query: string): string {
     );
   }
 
-  if (query.toLowerCase().includes("name")) {
+  if (lowerQuery.includes("name")) {
     return "Indya";
   }
 
-  if (query.toLowerCase().includes("id")) {
-    return("igriffin");
+  if (lowerQuery.includes("id")) {
+    return "igriffin";
   }
 
-  if (query.toLowerCase().includes("60")) {
-    return("89");
+  // Check for addition questions like "What is 26 plus 13?"
+  const additionMatch = query.match(/what is (\d+) plus (\d+)\?/i);
+  if (additionMatch) {
+    const num1 = parseInt(additionMatch[1], 10);
+    const num2 = parseInt(additionMatch[2], 10);
+    return (num1 + num2).toString();
   }
-
-  if (query.toLowerCase().includes("84 plus 98")) {
-    return("182");
-  }
-  if (query.toLowerCase().includes("56 plus 95")) {
-    return("151");
-  }
-
-  if (query.toLowerCase().includes("82 plus 21")) {
-    return("103");
-  }
-
-
 
   return "";
 }
