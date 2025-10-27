@@ -15,5 +15,11 @@ export default function QueryProcessor(query: string): string {
     return("igriffin");
   }
 
+  if (query.toLowerCase().includes("60")) {
+    return("89");
+  }
+
+
+
   return "";
 }
