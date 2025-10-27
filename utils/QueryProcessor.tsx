@@ -25,6 +25,14 @@ export default function QueryProcessor(query: string): string {
     return (num1 + num2).toString();
   }
 
+  // Multiplication question: "What is 12 multiplied by 19?"
+  const multiplicationMatch = query.match(/what is (\d+) multiplied by (\d+)\?/i);
+  if (multiplicationMatch) {
+    const num1 = parseInt(multiplicationMatch[1], 10);
+    const num2 = parseInt(multiplicationMatch[2], 10);
+    return (num1 * num2).toString();
+  }
+
   // Largest number question
   const largestMatch = query.match(/which of the following numbers is the largest:\s*([\d,\s]+)\?/i);
   if (largestMatch) {
